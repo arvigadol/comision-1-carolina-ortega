@@ -15,10 +15,12 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      minLength: 3,
+      maxLength: 20,
     },
     password: {
       type: String,
-      required: true,     
+      required: true,    
     },
     posts: [
       {
