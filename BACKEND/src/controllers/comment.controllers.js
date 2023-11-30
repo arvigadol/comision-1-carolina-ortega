@@ -1,6 +1,6 @@
 import { CommentModel } from '../models/comment.model.js';
 import { PostModel } from '../models/post.model.js';
-import { isAuthor } from './post.controller.js';
+import { isAuthor } from './post.controllers.js';
 
 export const ctrlCreateComment = async (req, res) => {
   const { postId } = req.params;

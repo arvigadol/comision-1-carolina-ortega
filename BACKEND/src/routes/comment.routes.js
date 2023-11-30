@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { ctrlCreateComment, ctrlDeleteComment, ctrlGetAllComments, ctrlGetOneComment, ctrlUpdateComment } from "../controllers/comment.controller.js";
-import { createCommentValidations, getAllCommentsValidations, getOneCommentValidations, updateCommentValidations } from "../models/validations/comment.validation.js";
+import { ctrlCreateComment, ctrlDeleteComment, ctrlGetAllComments, ctrlGetOneComment, ctrlUpdateComment } from "../controllers/comment.controllers.js";
+import { createCommentValidations, getAllCommentsValidations, getOneCommentValidations, updateCommentValidations } from "../models/validations/comment.validations.js";
 
 const commentRouter = Router();
 

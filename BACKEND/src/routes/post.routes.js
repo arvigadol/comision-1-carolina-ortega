@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { ctrlCreatePost, ctrlDeletePost, ctrlGetOnePost, ctrlUpdatePost } from "../controllers/post.controller.js";
-import { createPostValidations, getOnePostValidations, updatePostValidations } from "../models/validations/post.validation.js";
+import { ctrlCreatePost, ctrlDeletePost, ctrlGetOnePost, ctrlUpdatePost } from "../controllers/post.controllers.js";
+import { createPostValidations, getOnePostValidations, updatePostValidations } from "../models/validations/post.validations.js";
 
 const postRouter = Router();
 
