@@ -17,4 +17,9 @@
     place-content: center;
     min-height: 100vh;
   }
+
+  body {
+    background-color: #222;
+    color: #fff;
+  }
   
