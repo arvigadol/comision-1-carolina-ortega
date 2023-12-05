@@ -3,10 +3,13 @@ import styles from "../styles/AuthForm.module.css";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/const";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const LoginForm = () => {
   const ref = useRef(null);
 
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,10 +34,15 @@ const LoginForm = () => {
     });
 
     if (req.status !== 200) {
-      return alert("Error al autenticar al usuario registrado");
       ref.current.reset();
+      return alert("Error al iniciar sesión");
     }
 
+    const res = await req.json();
+
+    login(res);
+
+    ref.current.reset();
 
     navigate("/");
   };
