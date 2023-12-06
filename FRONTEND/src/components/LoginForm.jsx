@@ -1,12 +1,13 @@
 import styles from "../styles/AuthForm.module.css";
 
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/const";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const LoginForm = () => {
+
   const ref = useRef(null);
 
   const { login } = useContext(AuthContext);
@@ -59,6 +60,11 @@ const LoginForm = () => {
         </div>
         <button>Login</button>
       </form>
+      <div>
+        <p>Aún no eres usuario?  
+          <Link to="/register">Registrate</Link>
+        </p>
+      </div>
     </div>
   );
 };
