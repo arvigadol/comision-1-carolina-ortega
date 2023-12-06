@@ -22,6 +22,8 @@ export const ctrlGetOneUser= async (req, res) => {
   const { userId } = req.params;
   try {       
     const user = await UserModel.findOne({_id: userId})
+    .populate('posts', ['title', 'description', 'imageURL'])
+    .populate('comments', ['description']);
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });

@@ -1,5 +1,6 @@
 import { header, param, body } from 'express-validator';
 import { applyValidations } from '../../middlewares/applyValidations.js';
+import { isValidObjectId } from 'mongoose';
 
 export const createPostValidations = [
   body('title')
@@ -18,14 +19,16 @@ export const createPostValidations = [
 export const getOnePostValidations = [
   param('postId')
     .notEmpty().withMessage('El parametro { postId } no debe estar vacio.')
-    .isString().withMessage('El parametro { postId } debe ser un string.'),
+    .isString().withMessage('El parametro { postId } debe ser un string.')
+    .custom(isValidObjectId).withMessage('El parametro { postId } debe ser una id válida.'),
   applyValidations,
 ];
 
 export const updatePostValidations = [
   param('postId')
     .notEmpty().withMessage('El parametro { postId } no debe estar vacio.')
-    .isString().withMessage('El parametro { postId } debe ser un string.'),
+    .isString().withMessage('El parametro { postId } debe ser un string.')
+    .custom(isValidObjectId).withMessage('El parametro { postId } debe ser una id válida.'),
   body('title')
     .optional()
     .notEmpty().withMessage('El campo { title } no debe estar vacio.')
@@ -38,5 +41,13 @@ export const updatePostValidations = [
     .optional()
     .notEmpty().withMessage('El campo { imageURL } no debe estar vacio.')
     .isURL().withMessage('El campo { imageURL } debe ser una URL.'),
+  applyValidations,
+];
+
+export const deletePostValidations = [
+  param('postId')
+    .notEmpty().withMessage('El parametro { postId } no debe estar vacio.')
+    .isString().withMessage('El parametro { postId } debe ser un string.')
+    .custom(isValidObjectId).withMessage('El parametro { postId } debe ser una id válida.'),
   applyValidations,
 ];

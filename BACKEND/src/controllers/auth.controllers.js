@@ -4,9 +4,9 @@ import bcrypt from "bcrypt";
 
 export const ctrlCreateNewUser = async (req, res) => {
   try {
-    const newUser = new UserModel(req.body);
+    const newUser = new UserModel(req.body);    
 
-    newUser.password = await bcrypt.hash(newUser.password, 10);
+    newUser.password = await bcrypt.hash(newUser.password, 10); 
 
     await newUser.save();
 

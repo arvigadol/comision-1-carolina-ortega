@@ -1,5 +1,6 @@
 import { PostModel } from "../models/post.model.js";
 import { CommentModel } from "../models/comment.model.js";
+import { UserModel } from "../models/user.model.js";
 
 export const ctrlCreatePost = async (req, res) => {
   const userId = req.user._id;
@@ -16,19 +17,24 @@ export const ctrlCreatePost = async (req, res) => {
 
     await post.save();
 
-    return res.status(201).json(post);
+    await UserModel.findOneAndUpdate(
+      { _id: userId },
+      { $push: { posts: post._id } }
+    );
+
+    res.status(201).json(post);
   } catch (error) {
-    return res.status(500).json({ error: "No se pudo crear el post" });
+    console.log(error);
+    res.status(500).json({ error: "No se pudo crear el post" });
   }
 };
 
 export const ctrlGetAllPosts = async (req, res) => {
-  //const userId = req.user._id;
-  //author: userId
+
   try {
     const Allposts = await PostModel.find()
-      // .populate("author", ["username", "avatarURL"])
-      // .populate("comments", ["description"]);
+     .populate("author", ["username", "avatarURL"])
+     .populate("comments", ["description"]);
     if (!Allposts) {
       return res.status(404).json({ message: "Aún no hay posts para mostrar" });
     }
@@ -49,7 +55,7 @@ export const ctrlGetOnePost = async (req, res) => {
       author: userId,
     })
       .populate("author", ["username", "avatarURL"])
-      .populate("comments", ["text"]);
+      .populate("comments", ["description"]);
 
     if (!post) {
       return res.status(404).json({ error: "Post no encontrado" });

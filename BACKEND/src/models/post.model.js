@@ -1,6 +1,11 @@
 import { Schema, model } from 'mongoose';
 
 const PostSchema = new Schema({
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -19,11 +24,6 @@ const PostSchema = new Schema({
       ref: 'Comment',
     },
   ],
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
 }, {
   timestamps: true,
   versionKey: false,

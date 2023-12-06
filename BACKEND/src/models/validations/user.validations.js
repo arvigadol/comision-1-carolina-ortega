@@ -1,5 +1,6 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { applyValidations } from '../../middlewares/applyValidations.js';
+import { isValidObjectId } from 'mongoose';
 
 export const createUserValidations = [
   body('avatarURL')
@@ -29,7 +30,19 @@ export const loginUserValidations = [
   applyValidations,
 ];
 
+export const getOneUserValidations = [
+  param('userId')
+    .notEmpty().withMessage('El parametro { userId } no debe estar vacio.')
+    .isString().withMessage('El parametro { userId } debe ser un string.')
+    .custom(isValidObjectId).withMessage('El parametro { userId } debe ser una id válida.'),
+  applyValidations,
+];
+
 export const updateUserValidations = [
+  param('userId')
+  .notEmpty().withMessage('El parametro { userId } no debe estar vacio.')
+  .isString().withMessage('El parametro { userId } debe ser un string.')
+  .custom(isValidObjectId).withMessage('El parametro { userId } debe ser una id válida.'),
   body('avatarURL')
     .optional()
     .notEmpty().withMessage('El campo { avatarURL } no debe estar vacio.')
@@ -48,5 +61,13 @@ export const updateUserValidations = [
     .isStrongPassword().withMessage('El campo { password } debe tener al menos 8 caracteres y debe contener al menos una letra minúcula, una mayúscula y un caracter especial')
     .notEmpty().withMessage('El campo { password } no debe estar vacio.')
     .isString().withMessage('El campo { password } debe ser un string.'),
+  applyValidations,
+];
+
+export const deleteUserValidations = [
+  param('userId')
+    .notEmpty().withMessage('El parametro { userId } no debe estar vacio.')
+    .isString().withMessage('El parametro { userId } debe ser un string.')
+    .custom(isValidObjectId).withMessage('El parametro { userId } debe ser una id válida.'),
   applyValidations,
 ];
