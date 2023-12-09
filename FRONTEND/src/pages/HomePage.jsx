@@ -1,56 +1,19 @@
 import styles from "../styles/Landing.module.css";
 
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../providers/AuthProvider";
-import { API_URL } from "../utils/const";
+import Buttons from "../components/Buttons";
 
 function HomePage() {
-  const [home, setHome] = useState([]);
-
-  const { logout } = useContext(AuthContext);
-  const token = localStorage.getItem("token");
-
-  console.log(token)
-  function isLoggedIn () {
-    if(token ==! undefined || token ==! null || token) {
-      return true;
-    } else {
-      return false
-    }
-  }
   
-  console.log(isLoggedIn())
-
-  useEffect (() => {
-    fetch(`${API_URL}/`)
-    .then((res) => res.json())
-    .then((data)=> console.log(data))
-    .catch((err)=> console.log(err));
-  }, [])
-
   return (
-    <div className={styles.container}>
-      <div>
-        {isLoggedIn()
-          ? <button onClick={logout}>Logout</button> 
-          : <Link to="/login">Login</Link> 
-        }
-      </div> 
-      <div>
-        {isLoggedIn()
-          ? <Link to="/posts">Ver mis Posts</Link> 
-          : <Link to="/posts" hidden >Ver mis Posts</Link>
-        }
-      </div> 
- 
-      <h1>Home Page</h1>
-      <p>
-        Bienvenidos al Blog de Viajes
-      </p> 
-    </div>
+      <div className={styles.container}>
+        <h1>Home Page</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
+          labore placeat repellendus earum eum obcaecati tempora ipsum ab magnam
+          impedit, quod dolores eos soluta voluptatum eveniet fuga eius. Laborum,
+          quasi?
+        </p>
+      </div>
   );
 }
-
-
 export default HomePage;

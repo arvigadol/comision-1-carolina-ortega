@@ -1,11 +1,11 @@
 import styles from "../styles/AuthForm.module.css";
 
-import { useNavigate } from "react-router-dom";
-import { API_URL } from "../utils/const";
 import { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../utils/consts";
 
 function RegisterForm() {
-  const ref = useRef  (null);
+  const ref = useRef(null);
 
   const navigate = useNavigate();
 
@@ -21,8 +21,8 @@ function RegisterForm() {
 
     const user = {
       avatarURL,
-      username,
       email,
+      username,
       password,
     };
 
@@ -45,8 +45,8 @@ function RegisterForm() {
       <h2>Register</h2>
       <form onSubmit={handleSubmit} ref={ref} className={styles.form}>
         <div className={styles.inputGroup}>
-          <input type="url" placeholder="http://www.my-avatar.com" name="avatarURL" />
-        </div>        
+          <input type="url" placeholder="www.my-avatar.com" name="avatarURL" />
+        </div>
         <div className={styles.inputGroup}>
           <input type="email" placeholder="my-email@email.com" name="email" />
         </div>
@@ -57,8 +57,10 @@ function RegisterForm() {
           <input type="password" placeholder="*******" name="password" />
         </div>
         <button>Register</button>
+        <Link to="/">Home</Link>
       </form>
     </div>
   );
-};
+}
+
 export default RegisterForm;

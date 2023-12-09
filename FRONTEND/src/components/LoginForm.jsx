@@ -1,14 +1,16 @@
 import styles from "../styles/AuthForm.module.css";
 
-import { useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../utils/const";
+import { useId, useRef } from "react";
+import { API_URL } from "../utils/consts";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { Link, useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
-
+function LoginForm() {
   const ref = useRef(null);
+
+  const emailRef = useId();
+  const passwordRef = useId();
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -16,22 +18,22 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formLoginData = new FormData(e.target);
+    const formData = new FormData(e.target);
 
-    const email = formLoginData.get("email");
-    const password = formLoginData.get("password");
+    const email = formData.get("email");
+    const password = formData.get("password");
 
-    const userLogin = {
+    const user = {
       email,
       password,
     };
 
     const req = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
-      body: JSON.stringify(userLogin),
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(user),
     });
 
     if (req.status !== 200) {
@@ -53,20 +55,29 @@ const LoginForm = () => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit} ref={ref} className={styles.form}>
         <div className={styles.inputGroup}>
-          <input type="email" placeholder="email@email.com" name="email" />
+          <label htmlFor={emailRef}>Email:</label>
+          <input
+            type="email"
+            placeholder="my-email@email.com"
+            name="email"
+            id={emailRef}
+          />
         </div>
+
         <div className={styles.inputGroup}>
-          <input type="password" placeholder="********" name="password" />
+          <label htmlFor={passwordRef}>Password:</label>
+          <input
+            type="password"
+            placeholder="*******"
+            name="password"
+            id={passwordRef}
+          />
         </div>
         <button>Login</button>
+        <Link to="/register">Register</Link>
       </form>
-      <div>
-        <p>Aún no eres usuario?  
-          <Link to="/register">Registrate</Link>
-        </p>
-      </div>
     </div>
   );
-};
+}
 
 export default LoginForm;

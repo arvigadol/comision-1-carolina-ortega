@@ -31,3 +31,10 @@
     background-color: #eee;
   }
   
+  .botones {
+    background-color: #222;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 20px;
+  }
